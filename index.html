@@ -3,352 +3,722 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>رسالة خاصة 💌</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>سهر | أخصائية تسويق</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;400;700;900&display=swap" rel="stylesheet">
     
     <style>
-        * {
-            margin: 0;
+        @font-face {
+            font-family: 'Thamanya';
+            src: url('Thamanya.ttf') format('truetype'); 
+        }
+
+        html, body { 
+            margin: 0; 
             padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            height: 100vh;
-            height: 100dvh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            overflow: hidden;
-            color: #fff;
-        }
-
-        /* الخلفية المتحركة */
-        .stars {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-        .star {
-            position: absolute;
-            background: rgba(255, 255, 255, 0.5);
-            border-radius: 50%;
-            animation: twinkle infinite alternate;
-        }
-        @keyframes twinkle {
-            from { opacity: 0.2; transform: scale(0.8); }
-            to { opacity: 1; transform: scale(1.2); }
-        }
-
-        /* حاوية الشخصية */
-        .character-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            z-index: 10;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden !important; 
+            font-family: 'Thamanya', 'Cairo', sans-serif; 
+            background-color: #ffffff; 
+            color: #000000;
         }
         
-        .click-hint {
-            margin-bottom: 20px;
-            font-size: 16px;
-            color: #FCD535;
-            animation: bounce 2s infinite;
-            font-weight: bold;
-            text-shadow: 0 0 10px rgba(252, 213, 53, 0.5);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        /* رسمة القطة الكرتونية بـ CSS */
-        .cat {
-            position: relative;
-            animation: breathe 3s infinite ease-in-out;
+        .hero-wrapper { 
+            height: 100vh; 
+            perspective: 1200px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            position: relative; 
+            overflow: hidden; 
         }
         
-        .cat-head {
-            width: 140px;
-            height: 110px;
-            background: #EAECEF;
-            border-radius: 50% 50% 45% 45%;
-            position: relative;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-        }
-
-        .ear {
-            position: absolute;
-            top: -20px;
-            width: 0; height: 0;
-            border-left: 25px solid transparent;
-            border-right: 25px solid transparent;
-            border-bottom: 45px solid #EAECEF;
-            z-index: -1;
-        }
-        .ear.left { left: 5px; transform: rotate(-25deg); }
-        .ear.right { right: 5px; transform: rotate(25deg); }
-        
-        /* لون داخل الأذن */
-        .ear::after {
-            content: '';
-            position: absolute;
-            top: 15px; left: -10px;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 25px solid #ffb6c1;
-        }
-
-        .eye {
-            position: absolute;
-            top: 45px;
-            width: 22px; height: 22px;
-            background: #111;
-            border-radius: 50%;
-            overflow: hidden;
-        }
-        .eye.left { left: 30px; }
-        .eye.right { right: 30px; }
-        
-        /* لمعة العين المدمعة */
-        .eye::before {
-            content: ''; position: absolute;
-            top: 3px; left: 4px;
-            width: 8px; height: 8px;
-            background: white; border-radius: 50%;
-        }
-        .eye::after {
-            content: ''; position: absolute;
-            top: 12px; left: 12px;
-            width: 4px; height: 4px;
-            background: white; border-radius: 50%;
-        }
-
-        .blush {
-            position: absolute;
-            top: 65px;
-            width: 25px; height: 12px;
-            background: rgba(255, 105, 180, 0.4);
-            border-radius: 50%;
-            filter: blur(3px);
-        }
-        .blush.left { left: 20px; }
-        .blush.right { right: 20px; }
-
-        .nose {
-            position: absolute;
-            top: 65px; left: 65px;
-            width: 10px; height: 6px;
-            background: #ffb6c1;
-            border-radius: 50%;
-        }
-
-        .mouth {
-            position: absolute;
-            top: 75px; left: 60px;
-            width: 20px; height: 10px;
-            border-bottom: 2px solid #555;
-            border-radius: 50%;
-        }
-
-        /* دمعة تنزل من العين */
-        .tear {
-            position: absolute;
-            top: 65px; left: 35px;
-            width: 6px; height: 10px;
-            background: #89CFF0;
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            opacity: 0;
-            animation: dropTear 4s infinite 1s;
-        }
-
-        @keyframes dropTear {
-            0% { transform: translateY(0); opacity: 0; }
-            10% { opacity: 0.8; }
-            40% { transform: translateY(30px); opacity: 0; }
-            100% { opacity: 0; }
-        }
-
-        @keyframes breathe {
-            0%, 100% { transform: scale(1) translateY(0); }
-            50% { transform: scale(1.02) translateY(-5px); }
-        }
-
-        /* رسالة الاعتذار */
-        .message-container {
-            position: absolute;
-            width: 90%;
-            max-width: 450px;
-            background: rgba(22, 26, 30, 0.6);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            padding: 40px 30px;
+        .hero-content {
+            transform-style: preserve-3d;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            opacity: 0;
-            transform: scale(0.8) translateY(50px);
-            pointer-events: none;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 20;
         }
 
-        .message-container.active {
-            opacity: 1;
-            transform: scale(1) translateY(0);
-            pointer-events: auto;
+        .hero-title {
+            font-size: clamp(5rem, 15vw, 12rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -0.05em;
+            margin: 0;
         }
 
-        .heart-icon {
-            font-size: 40px;
-            color: #F6465D;
-            margin-bottom: 20px;
-            opacity: 0;
-            transform: scale(0);
-            transition: all 0.5s ease 0.5s;
+        .transform-style-3d {
+            transform-style: preserve-3d;
+        }
+
+        /* تنسيق الكلمات الإنجليزية العائمة */
+        .en-word {
+            position: absolute;
+            color: rgba(0, 0, 0, 0.05); /* لون رمادي فاتح جداً ليكون خلفية فنية */
+            font-weight: 900;
+            text-transform: uppercase;
+            white-space: nowrap;
+            z-index: 5;
+            pointer-events: none;
+            -webkit-text-stroke: 1px rgba(0,0,0,0.1); /* إطار خفيف للكلمة */
+        }
+
+        .divider {
+            width: 60px;
+            height: 2px;
+            background-color: currentColor; 
+            margin: 0 auto 30px auto;
+            border-radius: 2px;
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: 1fr; 
+            gap: 40px;
+            padding: 10px;
+            perspective: 1500px;
+        }
+
+        @media (min-width: 768px) {
+            .works-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                padding: 20px;
+            }
+            .work-item:nth-child(even) {
+                margin-top: 50px;
+            }
+        }
+
+        .work-item {
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            transform-style: preserve-3d;
+            background: #111111; 
+            aspect-ratio: 9/16; 
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            -webkit-tap-highlight-color: transparent; 
+        }
+
+        .work-item:active {
+            transform: scale(0.98);
+        }
+
+        .work-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            pointer-events: none; 
+        }
+
+        .work-item:hover .work-video {
+            opacity: 0.9;
+        }
+
+        .work-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 80px 20px 20px 20px; 
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.8) 60%, transparent 100%);
+            color: #ffffff;
+            text-align: right;
+            transform: translateZ(30px); 
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            pointer-events: none; 
+        }
+
+        .text-shadow {
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.9);
         }
         
-        .message-container.active .heart-icon {
-            opacity: 1;
-            transform: scale(1);
-            animation: heartbeat 1.5s infinite 1s;
+        @keyframes pulse-soft {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 255, 255, 0); }
+        }
+        .click-hint {
+            animation: pulse-soft 2s infinite;
         }
 
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            15% { transform: scale(1.2); }
-            30% { transform: scale(1); }
-            45% { transform: scale(1.2); }
-            60%, 100% { transform: scale(1); }
+        .fade-up-text { opacity: 0; transform: translateY(30px); }
+
+        #video-modal {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1); 
+            border-radius: 10px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.5); 
+            border-radius: 10px;
         }
 
-        .typed-text {
-            font-size: 18px;
-            line-height: 1.8;
-            color: #EAECEF;
-            min-height: 150px;
+        .btn-3d {
+            transform-style: preserve-3d;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-
-        .cursor {
-            display: inline-block;
-            width: 2px;
-            height: 18px;
-            background-color: #FCD535;
-            animation: blink 0.7s infinite;
-            vertical-align: middle;
-            margin-right: 2px;
+        .btn-3d:hover {
+            transform: translateY(-5px) scale(1.05) rotateX(10deg);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.15);
         }
-
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-
-        .fade-out {
-            opacity: 0 !important;
-            transform: scale(0.5) translateY(-100px) !important;
-        }
-
     </style>
 </head>
-<body>
+<body id="body-bg">
 
-    <!-- خلفية النجوم -->
-    <div class="stars" id="starsContainer"></div>
+    <section class="hero-wrapper" id="hero">
+        
+        <!-- الرسومات والكلمات العائمة 3D -->
+        <div class="absolute inset-0 z-0 pointer-events-none overflow-hidden" style="perspective: 800px;">
+            <!-- كلمات إنجليزية تطفو -->
+            <div class="en-word text-5xl md:text-8xl" style="top: 15%; left: 5%;">I</div>
+            <div class="en-word text-6xl md:text-9xl" style="top: 25%; right: -5%;">AM A</div>
+            <div class="en-word text-4xl md:text-7xl" style="bottom: 35%; left: 10%;">MARKETING</div>
+            <div class="en-word text-5xl md:text-8xl" style="bottom: 15%; right: 5%;">SPECIALIST</div>
 
-    <!-- الشخصية الكرتونية (القطة الحزينة) -->
-    <div class="character-container" id="character" onclick="revealMessage()">
-        <div class="click-hint">اضغطي علي 🥺</div>
-        <div class="cat">
-            <div class="ear left"></div>
-            <div class="ear right"></div>
-            <div class="cat-head">
-                <div class="eye left"></div>
-                <div class="eye right"></div>
-                <div class="blush left"></div>
-                <div class="blush right"></div>
-                <div class="nose"></div>
-                <div class="mouth"></div>
-                <div class="tear"></div>
+            <!-- رسومات 3D (Illustrations) -->
+            <!-- شكل 1: نجمة احترافية -->
+            <svg class="float-svg absolute text-gray-200 w-16 h-16 md:w-24 md:h-24" style="top: 20%; right: 20%;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
+            <!-- شكل 2: دائرة مفرغة -->
+            <svg class="float-svg absolute text-gray-100 w-20 h-20 md:w-32 md:h-32" style="bottom: 25%; left: 15%;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><circle cx="12" cy="12" r="10"/></svg>
+            <!-- شكل 3: نقاط أو شرارة -->
+            <svg class="float-svg absolute text-gray-200 w-12 h-12 md:w-16 md:h-16" style="top: 40%; left: 20%;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+        </div>
+
+        <div class="hero-content transform-style-3d" id="hero-main">
+            <h1 class="hero-title">سهر</h1>
+            <p class="text-2xl md:text-4xl font-bold mt-4 tracking-widest text-gray-800">أخصائية تسويق</p>
+            
+            <!-- جملة الوصف الجديدة بانميشن 3D مقسمة لكلمات -->
+            <div class="mt-6 flex justify-center gap-2 flex-wrap max-w-[90vw] md:max-w-2xl mx-auto text-xl md:text-3xl font-bold text-gray-500" style="perspective: 600px;">
+                <span class="ar-word inline-block transform-style-3d text-black">أخطط،</span>
+                <span class="ar-word inline-block transform-style-3d text-black">ابدع،</span>
+                <span class="ar-word inline-block transform-style-3d">وأدير</span>
+                <span class="ar-word inline-block transform-style-3d">المشروع</span>
+                <span class="ar-word inline-block transform-style-3d text-black">بشغف</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-32 px-6 max-w-4xl mx-auto text-center" id="about-section">
+        <h2 class="text-4xl md:text-6xl font-bold mb-6 fade-up-text">من هي سهر ؟</h2>
+        <div class="divider fade-up-text"></div>
+        <p class="text-lg md:text-2xl leading-loose font-light fade-up-text text-gray-800 text-justify md:text-center">
+            أنا سهر، أخصائية تسويق شغوفة ببناء العلامات التجارية وصناعة حضورها بطريقة تترك أثر. أملك خبرة تمتد لأكثر من سنتين في مجال التسويق، إلى جانب تخصصي الأكاديمي في التسويق والابتكار، وعملت مع مجالات متنوعة من المطاعم والكوفيهات إلى المكاتب والأنشطة التجارية المختلفة.
+        </p>
+    </section>
+
+    <section class="py-24 md:py-32 px-6 transition-colors duration-700" id="services-section">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6 text-center service-title">خدماتي</h2>
+            <div class="divider service-title"></div>
+            
+            <div class="space-y-6 md:space-y-10 mt-12">
+                <div class="service-card p-6 md:p-10 border border-gray-700 rounded-2xl hover:bg-gray-900 transition-colors">
+                    <h3 class="text-xl md:text-3xl font-bold mb-3">1. إدارة حسابات التواصل الاجتماعي</h3>
+                    <p class="text-base md:text-lg text-gray-400 leading-relaxed">إدارة متكاملة للحسابات تبدأ من وضع التوجه والمحتوى، وصولًا إلى النشر والمتابعة وبناء حضور متناسق للعلامة.</p>
+                </div>
+                <div class="service-card p-6 md:p-10 border border-gray-700 rounded-2xl hover:bg-gray-900 transition-colors">
+                    <h3 class="text-xl md:text-3xl font-bold mb-3">2. خدمة العملاء</h3>
+                    <p class="text-base md:text-lg text-gray-400 leading-relaxed">إدارة التواصل مع العملاء باحترافية، والرد على الاستفسارات بما يعكس هوية البراند ويحافظ على تجربة عميل مميزة.</p>
+                </div>
+                <div class="service-card p-6 md:p-10 border border-gray-700 rounded-2xl hover:bg-gray-900 transition-colors">
+                    <h3 class="text-xl md:text-3xl font-bold mb-3">3. إدارة الحملات الإعلانية</h3>
+                    <p class="text-base md:text-lg text-gray-400 leading-relaxed">تخطيط وتنفيذ الحملات الإعلانية بهدف الوصول للجمهور المناسب وتحقيق أفضل النتائج الممكنة.</p>
+                </div>
+                <div class="service-card p-6 md:p-10 border border-gray-700 rounded-2xl hover:bg-gray-900 transition-colors">
+                    <h3 class="text-xl md:text-3xl font-bold mb-3">4. تصوير وإنتاج الريلز</h3>
+                    <p class="text-base md:text-lg text-gray-400 leading-relaxed">ابتكار وتصوير محتوى قصير يناسب هوية البراند ويجذب الانتباه ويزيد التفاعل والوصول.</p>
+                </div>
+                <div class="service-card p-6 md:p-10 border border-gray-700 rounded-2xl hover:bg-gray-900 transition-colors">
+                    <h3 class="text-xl md:text-3xl font-bold mb-3">5. إدارة المؤثرين</h3>
+                    <p class="text-base md:text-lg text-gray-400 leading-relaxed">اختيار المؤثرين المناسبين للبراند، والتنسيق معهم وإدارة الحملات لضمان وصول الرسالة للجمهور المستهدف بالشكل الصحيح.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-24 md:py-40 px-6 max-w-4xl mx-auto text-center" id="why-section">
+        <h2 class="text-4xl md:text-6xl font-black mb-6 why-title">ليش سهر؟</h2>
+        <div class="divider why-title"></div>
+        <p class="text-xl md:text-2xl leading-relaxed font-bold mb-8 why-text text-gray-900">
+            لأن كل براند له قصة وأنا أساعدك تخليها تحكى بالطريقة الصح.
+        </p>
+        <p class="text-base md:text-lg leading-loose text-gray-700 why-text text-justify md:text-center">
+            ما أتعامل مع التسويق كخطة جاهزة تتكرر مع كل مشروع، بل أبدأ بفهم البراند، جمهوره، أهدافه وطبيعته، ثم أبني له التوجه التسويقي المناسب. من إدارة الحسابات وصناعة المحتوى، إلى الحملات الإعلانية والتعاون مع المؤثرين، أحرص أن تكون كل خطوة لها هدف، وكل فكرة تخدم البراند وتقربه من جمهوره.
+        </p>
+    </section>
+
+    <section class="py-24 md:py-32 transition-colors duration-700" id="works-section">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-16 md:mb-20 text-center works-intro">
+                <h2 class="text-4xl md:text-6xl font-bold mb-6">أعمالي</h2>
+                <div class="divider mx-auto"></div>
+                <h3 class="text-xl md:text-2xl font-light mb-4">أفكار تتحول إلى نتائج</h3>
+                <p class="text-base md:text-lg text-gray-400 max-w-2xl mx-auto leading-loose">
+                    وراء كل حملة ناجحة فكرة، وتخطيط، وتنفيذ، وقرارات تسويقية صنعت الفرق. اضغط على العمل لتشغيله وعرض التفاصيل بالصوت والصورة.
+                </p>
+            </div>
+
+            <div class="works-grid">
+                
+                <!-- العمل 1 -->
+                <div class="work-item" data-title="حملة العيد كوفي نوى">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو1.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة العيد كوفي نوى</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">التحدي:</span> انخفاض المبيعات قبل موسم العيد</p>
+                            <p><span class="font-bold text-white">الفكرة:</span> قبل العيد بثلاثة أيام، تم إطلاق حملة تستهدف شريحة البنات، من خلال تقديم نقاشة لليد مع كل فاتورة كجزء من تجربة العيد</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم بناء الحملة حول فكرة بسيطة وجذابة ترتبط بأجواء العيد وتدفع العميلة للزيارة والشراء</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> شهدت المبيعات ارتفاعًا ملحوظًا واستمر تأثير الحملة لمدة أربعة أيام</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 2 -->
+                <div class="work-item" data-title="حملة العيد كوفي آن">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو2.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة العيد كوفي آن</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> تجهيز تجربة عيد الأضحى بأسلوب أنيق وبسيط يتناسب مع هوية وتوجه البراند.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم العمل على تفاصيل الحملة والتجهيزات بما يحافظ على هوية كوفي إن ويقدم أجواء عيدية متناسقة وراقية</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 3 -->
+                <div class="work-item" data-title="حملة المنتجات الصيفية كوفي حوار">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو3.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة المنتجات الصيفية كوفي حوار</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> استلهام شخصية البطه الموجودة في هوية البراند وتوظيفها بطريقة إبداعية ضمن ثيم صيفي مستوحى من دو​ار الشمس.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم تحويل عناصر الهوية إلى فكرة بصرية متكاملة للحملة، وربطها بالمنتجات والأجواء الصيفية بطريقة جذابة ومناسبة للبراند.</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> حققت الحملة نجاحًا كبيرًا وجذبت اهتمامًا واسعًا من الجمهور.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 4 -->
+                <div class="work-item" data-title="حملة ايسكريم ذكرى">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو4.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة ايسكريم ذكرى</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> بناء حملة صيفية مختلفة مستوحاة من فتيات القوة، وتحويل الفكرة إلى تجربة متكاملة داخل الفروع.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم العمل على تجهيز الفرع، بناء ثيم الحملة، وإدارة وتفعيل الحملة من مختلف الجوانب، مع تنفيذها في فروع بريدة والرياض.</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> حققت الحملة نتائج مرضية جدًا وتفاعلًا ملحوظًا من الجمهور.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 5 -->
+                <div class="work-item" data-title="حملة لي روف للبوكسات الرمضانية">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو5.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة لي روف للبوكسات الرمضانية</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> الترويج للمنتجات الرمضانية بوكسات الجمعات بطريقة تعكس أجواء رمضان وتشجع على المشاركة والطلب.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم العمل على الحملة بشكل متكامل، بدايةً من تجهيز المكان والأجواء، وصولًا إلى تسويق المنتجات والترويج للحملة.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 6 -->
+                <div class="work-item" data-title="حملة كوفي آن برمضان">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو6.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة كوفي آن برمضان</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> تنشيط المبيعات خلال شهر رمضان من خلال تفعيل أسبوعي يستهدف الفئة المناسبة.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم تجهيز المكان وتنظيم الحملة على مدار أسبوعين، مع تخصيص يومي الأربعاء والخميس لتقديم نقاشه لليد مع كل فاتورة.</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> حققت الحملة نجاحًا ملحوظًا وساعدت على الوصول إلى الفئة المستهدفة وتنشيط المبيعات.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 7 -->
+                <div class="work-item" data-title="حملة سنوية كوفي آن">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو7.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة سنوية كوفي آن</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> تنظيم احتفال السنوية الأولى للبراند وتحويل المناسبة إلى تجربة متكاملة تعكس هوية كوفي إن.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تمت إدارة وتنظيم تفاصيل الفعالية بالكامل، من تجهيز المكان والمطبوعات والضيافة، إلى التنسيق مع المعلنين وإدارة خطوات الحملة والتفعيل.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 8 -->
+                <div class="work-item" data-title="تنفيذ حملة توي ستوري كوفي نوى">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو8.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">تنفيذ حملة توي ستوري كوفي نوى</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> استغلال الترند المرتبط بإطلاق فيلم Toy Story في دور السينما، بالتزامن مع الإقبال الكبير عليه، وتحويله إلى فرصة تسويقية للبراند.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم بناء تفعيل بسيط وسريع مستفيدًا من الترند، وربطه بالكوفي بطريقة مناسبة للهوية.</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> ساهمت الحملة في تنشيط المبيعات واستثمار موجة الاهتمام بالفيلم لصالح البراند.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 9 -->
+                <div class="work-item" data-title="حملة افتتاح كوفي ثرى البن">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو9.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة افتتاح كوفي ثرى البن</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> إطلاق افتتاح قوي يحقق انتشارًا واسعًا ويخلق حضورًا للبراند منذ اليوم الأول.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تمت إدارة الافتتاح بشكل متكامل، من إعداد الدعوات وتجهيزات الافتتاح والمطبوعات، إلى تنسيق تفاصيل الحملة والتفعيل.</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> تم تحقيق هدف الحملة وتحول الافتتاح إلى حديث متداول، وحقق انتشارًا ملحوظًا في بريدة.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 10 -->
+                <div class="work-item" data-title="حملة اليوم الوطني كوفي كومف">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو10.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة اليوم الوطني كوفي كومف</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> تفعيل اليوم الوطني بطريقة تتناسب مع هوية كوفي كومف وتمنح العملاء تجربة مرتبطة بالمناسبة.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم العمل على تصميم وتجهيز المطبوعات، تجهيز الفرع، بالإضافة إلى إدارة وتنسيق حملة المؤثرين.</p>
+                            <p><span class="font-bold text-white">الهدف:</span> تعزيز حضور البراند خلال المناسبة وزيادة التفاعل والوصول.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- العمل 11 -->
+                <div class="work-item" data-title="حملة كوفي كومف للمنتجات الصيفية">
+                    <div class="absolute inset-0 flex items-center justify-center z-20 pointer-events-none">
+                        <div class="click-hint bg-black/60 backdrop-blur-sm border border-white/20 text-white px-5 py-2 rounded-full font-bold text-sm shadow-xl flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" fill-rule="evenodd"></path></svg>
+                            اضغط لرؤية العمل
+                        </div>
+                    </div>
+                    <video class="work-video" playsinline webkit-playsinline preload="metadata">
+                        <source src="فيديو11.mp4#t=0.1" type="video/mp4">
+                    </video>
+                    <div class="work-info">
+                        <h4 class="text-lg md:text-2xl font-bold text-white text-shadow w-full mb-3">حملة كوفي كومف للمنتجات الصيفية</h4>
+                        <div class="work-desc-content text-xs md:text-sm space-y-2 text-gray-300 text-shadow">
+                            <p><span class="font-bold text-white">الفكرة:</span> تنشيط مبيعات المنتجات الصيفية من خلال بناء ثيم بصري مستوحى من الورود، وتحويله إلى حملة متكاملة.</p>
+                            <p><span class="font-bold text-white">التنفيذ:</span> تم إعداد خطة الحملة بالكامل، من وضع الفكرة والاستراتيجية، إلى التنفيذ والتفعيل والترويج.</p>
+                            <p><span class="font-bold text-white">النتيجة:</span> حملة متكاملة جمعت بين الهوية البصرية، التفعيل، والترويج بهدف رفع الاهتمام بالمنتجات الصيفية وتنشيط المبيعات.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- قسم "وهناك المزيد..." بأنميشن 3D -->
+            <div class="mt-24 mb-10 text-center more-works-anim" style="perspective: 1000px;">
+                <div class="inline-block border border-gray-800 bg-gray-900 rounded-3xl p-8 md:p-12 transform-style-3d shadow-2xl">
+                    <h3 class="text-3xl md:text-5xl font-bold text-white mb-4">وهناك المزيد... ✨</h3>
+                    <p class="text-gray-400 text-lg md:text-xl font-light max-w-lg mx-auto leading-relaxed">
+                        هذه مجرد لمحة من حملات وقصص نجاح أخرى صنعناها بشغف، ولم يتسع المجال لعرضها كلها هنا.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- القسم الختامي (التواصل) -->
+    <section class="py-32 px-6 transition-colors duration-700" id="contact-section">
+        <div class="max-w-4xl mx-auto text-center perspective-1000">
+            <h2 class="text-5xl md:text-8xl font-black mb-6 contact-anim">لنبني قصة نجاحك</h2>
+            <div class="divider mx-auto contact-anim"></div>
+            
+            <p class="text-xl md:text-3xl text-gray-500 mb-8 font-light contact-anim">
+                أنا هنا لتحويل أفكارك إلى واقع ملموس يترك أثراً.
+            </p>
+            
+            <!-- جملة "جاهز للبدء؟" مع التسطير المميز -->
+            <div class="mb-16 contact-anim">
+                <span class="relative inline-block text-3xl md:text-5xl font-black tracking-wider text-gray-900 pb-4">
+                    جاهز للبدء؟
+                    <!-- التسطير الأنيق المميز -->
+                    <span class="absolute left-1/2 bottom-0 w-16 h-1.5 bg-black transform -translate-x-1/2 rounded-full"></span>
+                </span>
+            </div>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6 contact-anim">
+                <!-- زر الواتساب -->
+                <a href="https://wa.me/966570534114" target="_blank" rel="noopener noreferrer" class="btn-3d flex items-center justify-center gap-3 bg-black text-white border-2 border-black px-8 py-4 rounded-full text-xl md:text-2xl font-bold w-full md:w-auto hover:bg-white hover:text-black">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.347-.272.297-1.04 1.016-1.04 2.479 0 1.463 1.065 2.876 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    <span dir="ltr">+966 57 053 4114</span>
+                </a>
+                <!-- زر الإنستقرام -->
+                <a href="https://instagram.com/niyu8ii" target="_blank" rel="noopener noreferrer" class="btn-3d flex items-center justify-center gap-3 bg-transparent text-black border-2 border-black px-8 py-4 rounded-full text-xl md:text-2xl font-bold w-full md:w-auto hover:bg-black hover:text-white">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <span dir="ltr">@niyu8ii</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- النافذة المنبثقة (Modal) -->
+    <div id="video-modal" class="fixed inset-0 z-[100] bg-black/95 hidden flex-col items-center justify-center opacity-0">
+        <button id="close-modal" class="absolute top-6 right-6 md:top-10 md:right-10 text-white text-5xl hover:scale-110 transition-transform z-50">&times;</button>
+        <div class="relative w-full max-w-6xl h-full flex flex-col md:flex-row items-center justify-center p-6 md:p-12 gap-8 md:gap-16">
+            <div class="w-full md:w-1/2 flex justify-center h-[50vh] md:h-[80vh]">
+                <video id="modal-video" class="h-full w-auto max-w-full rounded-2xl shadow-2xl object-cover aspect-[9/16]" controls playsinline webkit-playsinline></video>
+            </div>
+            <div class="w-full md:w-1/2 flex flex-col gap-6 text-right max-h-[40vh] md:max-h-[80vh] overflow-y-auto custom-scrollbar pl-4">
+                <h3 id="modal-title" class="text-3xl md:text-5xl font-bold text-white"></h3>
+                <div id="modal-desc" class="text-lg md:text-xl text-gray-300 leading-relaxed space-y-4"></div>
             </div>
         </div>
     </div>
 
-    <!-- بطاقة الرسالة -->
-    <div class="message-container" id="messageBox">
-        <i class="fa-solid fa-heart-crack heart-icon" id="topIcon"></i>
-        <div class="typed-text"><span id="textTarget"></span><span class="cursor"></span></div>
-    </div>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
     <script>
-        // إنشاء خلفية النجوم المتحركة
-        const starsContainer = document.getElementById('starsContainer');
-        for (let i = 0; i < 50; i++) {
-            let star = document.createElement('div');
-            star.className = 'star';
-            let size = Math.random() * 3 + 1;
-            star.style.width = size + 'px';
-            star.style.height = size + 'px';
-            star.style.left = Math.random() * 100 + '%';
-            star.style.top = Math.random() * 100 + '%';
-            star.style.animationDuration = (Math.random() * 3 + 2) + 's';
-            star.style.animationDelay = (Math.random() * 2) + 's';
-            starsContainer.appendChild(star);
-        }
+        gsap.registerPlugin(ScrollTrigger);
 
-        // الرسالة المطلوبة
-        const messageText = "اسف حياتي.. بس قررت ابطل من هالمشروع لأنو مُتعب مره ويستهلك طاقتي وتركيزي وانا اطور الموقع وما قدرت اكمل.. \n\nممكن بالايام الجاية نفكر بشيء احلى، وانا برضوا مالي خلقه مو ملتزم ادخل كل يوم اصور او ارفع شارت..\n\nسامحيني 🥺❤️";
-        
-        let i = 0;
-        const speed = 60; // سرعة الكتابة
+        // 1. أنميشن قسم "سهر" البداية 3D (الكلمات الإنجليزية والرسومات)
+        // دخول الكلمات الإنجليزية
+        gsap.from(".en-word", {
+            duration: 2, opacity: 0, scale: 0, z: -500,
+            rotationZ: () => Math.random() * 90 - 45,
+            x: () => Math.random() * 200 - 100,
+            y: () => Math.random() * 200 - 100,
+            stagger: 0.3, ease: "power3.out"
+        });
+        // الكلمات الإنجليزية تطفو باستمرار
+        gsap.to(".en-word", {
+            y: "+=30", x: "+=20", rotationZ: "+=10", rotationX: "+=15",
+            duration: 4, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: 0.7
+        });
 
-        function typeWriter() {
-            if (i < messageText.length) {
-                let char = messageText.charAt(i);
-                if(char === '\n') {
-                    document.getElementById("textTarget").innerHTML += "<br>";
-                } else {
-                    document.getElementById("textTarget").innerHTML += char;
+        // دخول وطوفان الرسومات 3D
+        gsap.from(".float-svg", { duration: 2, opacity: 0, scale: 0, rotation: 180, stagger: 0.4, ease: "back.out(1.5)" });
+        gsap.to(".float-svg", { y: "-=40", rotation: "+=20", duration: 5, repeat: -1, yoyo: true, ease: "sine.inOut", stagger: 1 });
+
+        // أنميشن 3D احترافي لجملة (أخطط، ابدع، وأدير المشروع بشغف)
+        gsap.from(".ar-word", {
+            duration: 1.2, opacity: 0, y: 60, z: -300, rotationX: -100,
+            stagger: 0.15, ease: "back.out(1.5)", delay: 0.8
+        });
+
+        // 2. حركة النص الرئيسية عند السحب
+        const tlHero = gsap.timeline({
+            scrollTrigger: { trigger: "#hero", start: "top top", end: "+=70%", scrub: 0.8, pin: true }
+        });
+        tlHero.to("#hero-main, .en-word, .float-svg", { scale: 0.2, opacity: 0, z: -800, rotationX: 15, y: -50, ease: "power1.inOut" });
+
+        // حركة الظهور
+        gsap.utils.toArray('.fade-up-text').forEach(text => {
+            gsap.to(text, { scrollTrigger: { trigger: text, start: "top 85%" }, y: 0, opacity: 1, duration: 1, ease: "power3.out" });
+        });
+
+        // تأثير الخدمات
+        gsap.utils.toArray('.service-card').forEach((card, i) => {
+            gsap.from(card, { scrollTrigger: { trigger: card, start: "top 90%", end: "top 60%", scrub: 1 }, y: 50, rotationX: 10, opacity: 0, z: -100 });
+        });
+
+        // تغيير الألوان (أبيض وأسود)
+        ScrollTrigger.create({
+            trigger: "#services-section", start: "top 50%", end: "bottom 50%",
+            onEnter: () => gsap.to("#body-bg", { backgroundColor: "#000000", color: "#ffffff", duration: 0.8 }),
+            onLeaveBack: () => gsap.to("#body-bg", { backgroundColor: "#ffffff", color: "#000000", duration: 0.8 }),
+            onLeave: () => gsap.to("#body-bg", { backgroundColor: "#ffffff", color: "#000000", duration: 0.8 }),
+            onEnterBack: () => gsap.to("#body-bg", { backgroundColor: "#000000", color: "#ffffff", duration: 0.8 }),
+        });
+        ScrollTrigger.create({
+            trigger: "#works-section", start: "top 60%", end: "bottom 60%",
+            onEnter: () => gsap.to("#body-bg", { backgroundColor: "#000000", color: "#ffffff", duration: 0.8 }),
+            onLeaveBack: () => gsap.to("#body-bg", { backgroundColor: "#ffffff", color: "#000000", duration: 0.8 }),
+            onLeave: () => gsap.to("#body-bg", { backgroundColor: "#ffffff", color: "#000000", duration: 0.8 }),
+            onEnterBack: () => gsap.to("#body-bg", { backgroundColor: "#000000", color: "#ffffff", duration: 0.8 })
+        });
+
+        gsap.from(".why-text", { scrollTrigger: { trigger: "#why-section", start: "top 80%" }, y: 30, opacity: 0, duration: 1, stagger: 0.15, ease: "power2.out" });
+
+        gsap.utils.toArray('.work-item').forEach((item) => {
+            gsap.from(item, {
+                scrollTrigger: { trigger: item, start: "top 85%", toggleActions: "play none none reverse" },
+                y: 60, rotationX: 15, scale: 0.95, opacity: 0, duration: 0.8, transformOrigin: "center bottom", ease: "back.out(1.2)" 
+            });
+        });
+
+        gsap.from(".more-works-anim", {
+            scrollTrigger: { trigger: ".more-works-anim", start: "top 85%", toggleActions: "play none none reverse" },
+            y: 50, rotationX: -25, scale: 0.9, opacity: 0, duration: 0.8, transformOrigin: "center bottom", ease: "back.out(1.2)"
+        });
+
+        gsap.from(".contact-anim", {
+            scrollTrigger: { trigger: "#contact-section", start: "top 80%", toggleActions: "play none none reverse" },
+            y: 80, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out"
+        });
+
+        // نظام الضغط الذكي لحل مشكلة السحب (Scroll vs Click)
+        const modal = document.getElementById('video-modal');
+        const modalVideo = document.getElementById('modal-video');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const closeModal = document.getElementById('close-modal');
+
+        document.querySelectorAll('.work-item').forEach(item => {
+            let startY, startX;
+            let isScrolling = false;
+
+            item.addEventListener('touchstart', (e) => {
+                startY = e.touches[0].clientY;
+                startX = e.touches[0].clientX;
+                isScrolling = false;
+            }, { passive: true });
+
+            item.addEventListener('touchmove', (e) => {
+                let moveY = e.touches[0].clientY;
+                let moveX = e.touches[0].clientX;
+                if (Math.abs(moveY - startY) > 10 || Math.abs(moveX - startX) > 10) {
+                    isScrolling = true;
                 }
-                i++;
-                
-                // تغيير الأيقونة بالنهاية من قلب مكسور لقلب سليم
-                if(i === messageText.length) {
-                    setTimeout(() => {
-                        let icon = document.getElementById('topIcon');
-                        icon.className = 'fa-solid fa-heart heart-icon';
-                    }, 500);
-                }
-                
-                setTimeout(typeWriter, speed);
-            }
-        }
+            }, { passive: true });
 
-        function revealMessage() {
-            // إخفاء الشخصية
-            document.getElementById('character').classList.add('fade-out');
+            item.addEventListener('touchend', (e) => {
+                if (!isScrolling) {
+                    e.preventDefault(); 
+                    openModalFunction(item);
+                }
+            });
+
+            item.addEventListener('click', (e) => {
+                if (e.pointerType !== 'touch') { 
+                    openModalFunction(item);
+                }
+            });
+        });
+
+        function openModalFunction(item) {
+            let vidSrc = item.querySelector('source').src.split('#')[0];
+            const title = item.getAttribute('data-title');
+            const descHTML = item.querySelector('.work-desc-content').innerHTML;
+
+            modalVideo.src = vidSrc;
+            modalTitle.innerHTML = title;
+            modalDesc.innerHTML = descHTML;
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
             
-            // إظهار الرسالة وبدء الكتابة
-            setTimeout(() => {
-                document.getElementById('character').style.display = 'none';
-                document.getElementById('messageBox').classList.add('active');
-                
-                // تأخير بسيط قبل بدء الكتابة
-                setTimeout(() => {
-                    typeWriter();
-                }, 1000);
-                
-            }, 600);
+            modalVideo.muted = false; 
+            modalVideo.play();
+
+            gsap.to(modal, { opacity: 1, duration: 0.4, ease: "power2.out" });
+            gsap.fromTo(modalVideo, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.6, ease: "back.out(1.2)", delay: 0.1 });
+            gsap.fromTo(modalTitle, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", delay: 0.3 });
+            gsap.fromTo(modalDesc, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, ease: "power3.out", delay: 0.4 });
         }
+
+        closeModal.addEventListener('click', () => {
+            modalVideo.pause();
+            modalVideo.src = ""; 
+            gsap.to(modal, { opacity: 0, duration: 0.3, onComplete: () => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }});
+        });
     </script>
 </body>
 </html>
